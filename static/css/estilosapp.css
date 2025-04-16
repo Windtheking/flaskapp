@@ -1,0 +1,34 @@
+
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+}
+
+
+form{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    justify-self: center;
+    width: 60%;
+    background-color: black;
+    flex-direction: column;
+}
+
+input{
+    margin: 1vh;
+}
+
+
+.nombre{
+    display: flex;
+    width: 90%;
+    align-self: center;
+}
+
+.pass{
+    display: inline-flex;
+    width: 90%;
+    align-self: center;
+}

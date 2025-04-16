@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/estilosapp.css">
+    <title>Formulario</title>
+</head>
+<body>
+    <h1>enviar datos</h1>
+
+    <!-- esto permite enviar el "post" que necesita el app.py para ejecutar el ingreso a la base de datos de mysql -->
+    <form action="/recibir" method="POST">                                      
+        <input class="nombre" type="text" name="nombre" placeholder="Tu nombre" id="">
+        <input class="pass" type="password" name="contrasen" placeholder="Tu contraseña" id="">
+        <button name="action" value="create">insertar
+        <button name="action" value="read">leer
+        <button name="action" value="update">¿desea actualizar datos?
+        <button name="action" value="delete">¿desea eliminar datos?
+    </form>
+
+</body>
+</html>
