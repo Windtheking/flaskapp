@@ -1,5 +1,5 @@
 import pymysql
-from flask import Flask, request, jsonify, render_template, url_for
+from flask import Flask, request, jsonify, render_template, url_for, redirect
 from markupsafe import escape
 
 
@@ -18,8 +18,8 @@ def get_connection():                     #conectar a base de datos
 
 
 @app.route("/")                                                      #con este codigo el root de este mensaje es en la pagina principal 
-def index():
-    return render_template('formulario.html')                              #esto es para que aparezca la pagina creada con html en el servidor en vivo
+def indo():
+    return redirect(url_for("index"))                              #esto es para que aparezca la pagina creada con html en el servidor en vivo
     
     with open('pruebadatabase.txt', 'a') as f:
         f.write(f'{nombre},{contrasena}\n')
@@ -29,10 +29,33 @@ def index():
                                                                         #puedes meter una tupla,el segundo valor sera uno de los tantosss codigoss http (consultar informacion)
 
 
+@app.route("/pagina_principal")                                                
+def index():
+    return render_template('formulario.html')
+
+
 @app.route("/recibir", methods = ["GET","POST"])                          #jamas olvides poner que metodos quieres
 def CR():
     if request.method == "POST":
+
+
         action = request.form.get('action')
+
+        # conexion = get_connection() 
+
+
+        # try:
+        #     with conexion.cursor() as cursor:    
+        #         sql = "SET @num := 0;  " \
+        #         "UPDATE usuarios SET id = @num := (@num+1); " \
+        #         "ALTER TABLE  usuarios AUTO_INCREMENT = 1"
+        #         cursor.execute(sql)
+        #         conexion.commit()
+        # except Exception as e:
+        #     return "error, intente denuevo"
+        # finally:
+        #     conexion.close()
+
 
         if action == "create":
             return crear()
@@ -52,8 +75,11 @@ def crear():                                    # Flask lo atrapa por el name de
     
     if not nombre or not contrasena:
         return "Error: Ambos campos son requeridos."
-    
+
     conexion = get_connection()
+
+    
+
     try:
         with conexion.cursor() as cursor:
             sql = "INSERT INTO usuarios (nombre, contrasena) VALUES (%s, %s)"
