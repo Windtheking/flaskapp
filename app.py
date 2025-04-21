@@ -29,7 +29,7 @@ def indo():
                                                                         #puedes meter una tupla,el segundo valor sera uno de los tantosss codigoss http (consultar informacion)
 
 
-@app.route("/pagina_principal")                                                
+@app.route("/pagina_principal", methods = ["GET", "POST"])                                                
 def index():
     return render_template('formulario.html')
 
@@ -37,24 +37,10 @@ def index():
 @app.route("/recibir", methods = ["GET","POST"])                          #jamas olvides poner que metodos quieres
 def CR():
     if request.method == "POST":
-
+        print(url_for("UD"))
 
         action = request.form.get('action')
 
-        # conexion = get_connection() 
-
-
-        # try:
-        #     with conexion.cursor() as cursor:    
-        #         sql = "SET @num := 0;  " \
-        #         "UPDATE usuarios SET id = @num := (@num+1); " \
-        #         "ALTER TABLE  usuarios AUTO_INCREMENT = 1"
-        #         cursor.execute(sql)
-        #         conexion.commit()
-        # except Exception as e:
-        #     return "error, intente denuevo"
-        # finally:
-        #     conexion.close()
 
 
         if action == "create":
@@ -62,9 +48,9 @@ def CR():
         elif action == "read":
             return leer()
         elif action == "update":
-            return render_template("actualizartabla.html")
+            return render_template("actualizardatos.html")
         elif action == "delete":
-            return eliminar()
+            return render_template("borrar datos.html")
         else:
             return "Acción no válida"
     return render_template("formulario.html")
@@ -105,7 +91,7 @@ def leer():
         conexion.close()
 
 
-@app.route("/recibir", methods = ["GET", "POST"])
+@app.route("/recibir/actualizar_y_borrar", methods = ["GET", "POST"])
 def UD():
     if request.method == "POST":
         action = request.form.get('action')
@@ -116,14 +102,14 @@ def UD():
             return eliminar()
         else:
             return "Acción no válida"
-    return render_template("actualizartabla.html")
+    return render_template("actualizardatos.html")
 
 
 def actualizar(): 
-    id_usuario = request.form['id']
-    nombre = request.form['nombre'].strip()
-    contrasena = request.form['contrasen'].strip()
-    print(f"ID: {id_usuario}, Nombre: {nombre}, Contraseña: {contrasena}")
+    id = request.form('identificacion').strip()
+    nombre = request.form('nombre').strip()
+    contrasena = request.form('contrasen').strip()
+    print("hola mundo")
 
 
     if not nombre or not contrasena:
@@ -132,18 +118,44 @@ def actualizar():
     conexion = get_connection()
     try:
         with conexion.cursor() as cursor:
-            sql = "UPDATE usuarios SET nombre=%s, contrasena=%s WHERE id=%s"
-            cursor.execute(sql, (nombre, contrasena, id_usuario))
+            sql = f"UPDATE usuarios SET nombre=%s, contrasena=%s WHERE id=%s"
+            cursor.execute(sql, (nombre, contrasena, id))
             conexion.commit()
-        return f"Usuario con ID {id_usuario} actualizado correctamente"
+            return render_template("guardado exitosamente")
+        print(f"Usuario con ID {id} actualizado correctamente")
     except Exception as e:
         return f"Error al actualizar el usuario: {str(e)}"
     finally:
         conexion.close()
 
-@app.route("/recibir/<nombre>")
-def mostrar_perfil_personal():
+def eliminar():
+    identif = int(request.form['identificacion'])
     nombre = request.form['nombre'].strip()
+    contrasena = request.form['contrasen'].strip()
+    print(f"ID: {identif}, Nombre: {nombre}, Contraseña: {contrasena}")
+
+
+    if not nombre or not contrasena:
+        return "Error: Ambos campos son requeridos."
+    
+
+    conexion = get_connection()
+    try:
+        with conexion.cursor() as cursor:
+            sql = "DELETE FROM usuarios WHERE id=%s"
+            cursor.execute(sql, (nombre, contrasena, identif))
+            conexion.commit()
+        print(f"Usuario con ID {identif} actualizado correctamente")
+    except Exception as e:
+        return f"Error al actualizar el usuario: {str(e)}"
+    finally:
+        conexion.close()
+
+
+
+@app.route("/prueba/<nombre>")
+def mostrar_perfil_personal(nombre):
+    # nombre = request.form['nombre'].strip()
     return f"perfil de {escape(nombre)}"
 
 
@@ -157,5 +169,6 @@ def api_info():
         }
     return jsonify(data), 200
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
