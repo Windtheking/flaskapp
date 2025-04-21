@@ -3,17 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/actua.css">
     <title>Document</title>
 </head>
 <body>
-    <form action="/pagina_principal" method="POST">
-        <h3>ingrese la ID a actualizar</h3>
-        <input type="text" name="identificacion" placeholder="ingrese id identifcativa">
-        <input type="text" name="nombre" placeholder="ingrese nuevo username">
-        <input type="text" name="contrasen" placeholder="ingrese nueva contraseña" >
-        <button type= "submit" name="action" value="update">haga click para actualizar</button>
-        <button type= "submit" name="action" value="delete">haga click para borrar
-
+    <div class="tituloh3"><h3>ingrese la ID a actualizar</h3></div>
+    <form class="formulario" action="/pagina_principal" method="POST">
+        <div class="cont_form">
+            <div class="inputs">
+                <input class="input1" type="text" name="identificacion" placeholder="ingrese id referencia">
+                <input class="input2" type="text" name="nombre" placeholder="ingrese nuevo username">
+                <input class="input3" type="text" name="contrasen" placeholder="ingrese nueva contraseña" >
+            </div>
+            <div class="buttons">
+                <button class="buton1" type= "submit" name="action" value="update">haga click para actualizar</button>
+                <button class="buton2" type= "submit" name="action" value="delete">¿quiere borrar datos?
+            </div>
+        </div>
     </form>
+
 </body>
 </html>

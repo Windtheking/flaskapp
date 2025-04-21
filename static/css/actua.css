@@ -1,0 +1,120 @@
+*{
+    padding: 0%;
+    margin: 0%;
+    box-sizing: border-box;
+    /* display: flex; */
+}
+
+
+body{
+    background: #e8e3e3;
+    background: linear-gradient(288deg, rgba(232, 227, 227, 1) 10%, rgba(135, 135, 135, 1) 50%, rgba(189, 185, 185, 1) 62%, rgba(212, 212, 212, 1) 79%, rgba(255, 255, 255, 1) 100%, rgba(255, 255, 255, 1) 100%);
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+
+.tituloh3{
+    justify-items: center;
+    align-content: center;
+    width: 100%;
+    height: 8vh;
+}
+
+/* .formulario{
+    width: 100%;
+    height: 40vh;
+    flex-direction: row;
+} */
+
+.cont_form{
+    display: flex;
+    justify-content:space-between ;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    width: 60%;
+    height: 100%;
+    margin: 4vh;
+    background-color: #694eff;
+    box-shadow: 1vh 1vh 2vh;
+}
+
+.input1{
+    display: flex;
+    margin: 2vh;
+    height: 7vh;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+}
+
+.input2{
+    display: flex;
+    margin: 2vh;
+    height: 7vh;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+}
+
+.input3{
+    display: flex;
+    margin: 2vh;
+    height: 7vh;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttons{
+    display: inline-flex;
+    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    width: 40%;
+    height: 100%;
+    margin: 4vh;
+    background-color: #694eff;
+    box-shadow: 1vh 1vh 2vh;
+}
+
+.buton1{
+    display: flex;
+    margin: 2vh;
+    height: 7vh;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+    border: transparent;
+    border-radius:2vh ;
+}
+
+.buton2{
+    display: flex;
+    margin: 2vh;
+    height: 7vh;
+    width: 90%;
+    justify-content: center;
+    align-items: center;
+    border: transparent;
+    border-radius:2vh ;
+}
+
+.buton1:hover{
+    background-color: rgb(255, 148, 255) ;
+}
+
+.buton2:hover{
+    background-color: rgb(255, 148, 255);
+}

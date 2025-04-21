@@ -72,11 +72,12 @@ input{
     margin-top: 10vh;
 }
 
-
-
+#referenciacentral:hover{
+    background-color: rgb(255, 115, 243);
+}
 
 #referencia1:hover{
-    background-color: red;
+    background-color: rgb(255, 115, 243);
 }
 
 #referencia2:hover{
