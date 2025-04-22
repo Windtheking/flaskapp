@@ -10,9 +10,9 @@ body{
     background: #ff7373;
     background: linear-gradient(
                                 352deg, rgb(255, 255, 255) 
-                                18%,    rgba(255, 148, 230, 1) 56%,
-                                     rgba(255, 0, 195, 1) 
-                                80%, rgba(248, 10, 216, 1) 100%);
+                                18%,    rgb(255, 119, 223) 56%,
+                                     rgb(255, 174, 236) 
+                                80%, rgb(255, 122, 237) 100%);
     background-repeat: no-repeat;
     background-size:contain;
 }
