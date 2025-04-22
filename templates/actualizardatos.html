@@ -8,25 +8,25 @@
 </head>
 <body>
     <header>
-        <div class="tituloh3"><h3>Ingrese la ID a actualizar</h3></div>
+        <div class="tituloh3"><h3>¿Quieres cambiar usuario o contraseña?</h3></div>
     </header>
 
-    <form class="formulario" action="/pagina_principal" method="POST">
+    <form class="formulario" action="/recibir/actua_borra" method="POST">
         <div class="cont_form">
             <div class="inputs">
-                <input class="input1" type="text" name="identificacion" placeholder=" Ingrese id referencia">
-                <input class="input2" type="text" name="nombre" placeholder=" Ingrese nuevo username">
-                <input class="input3" type="text" name="contrasen" placeholder=" Ingrese nueva contraseña" >
+                <input class="input1" type="text" name="identificacion" placeholder=" Ingrese id de referencia">
+                <input class="input2" type="text" name="nombre" placeholder=" Ingrese username">
+                <input class="input3" type="text" name="contrasen" placeholder=" Ingrese contraseña" >
             </div>
             <div class="buttons">
                 <button class="buton1" type= "submit" name="action" value="update">Haga click para actualizar</button>
-                <button class="buton2" type= "submit" name="action" value="delete">¿Quiére borrar datos?
+                <button class="buton2" type= "submit" name="action" value="delete">¿Quiére borrar su usuario?</button>
+                <div class="elh5"><h5>No olvide que si desea cambiar solo contraseña o solo usuario debe <br> ingresar los campos que no desea alterar como los ingreso al comienzo   </h5></div>
             </div>
         </div>
     </form>
-
 </body>
-<footer>
+<!-- <footer>
     <div class="elfooter">asdf</div>
-</footer>
+</footer> -->
 </html>

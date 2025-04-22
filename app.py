@@ -19,14 +19,32 @@ def get_connection():                     #conectar a base de datos
 
 @app.route("/")                                                      #con este codigo el root de este mensaje es en la pagina principal 
 def indo():
-    return redirect(url_for("index"))                              #esto es para que aparezca la pagina creada con html en el servidor en vivo
-    
-    with open('pruebadatabase.txt', 'a') as f:
-        f.write(f'{nombre},{contrasena}\n')
 
-    return render_template("respuestas.html" , nombre = nombre)         #de esta manera hacemos que otra pagina aparte sea la que reciba (return) el valor para mostrarlo
+    conexion = get_connection()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SET @num := 0;")
+            cursor.execute("UPDATE usuarios SET id = @num := (@num+1);")
+            cursor.execute("ALTER TABLE usuarios AUTO_INCREMENT = 1;")
+            coneion.commit()
+    except Exception as e:
+        return "error interno de servidor"
+    finally:
+            conexion.close()
+            return redirect(url_for("index"))                           #esto es para que aparezca la pagina creada con html en el servidor en vivo
+    
+    # with open('pruebadatabase.txt', 'a') as f:
+    #     f.write(f'{nombre},{contrasena}\n')
+
+    # return render_template("respuestas.html" , nombre = nombre)         #de esta manera hacemos que otra pagina aparte sea la que reciba (return) el valor para mostrarlo
                                                                         #dentro del if - post puedes qué debe retornar cuando ocurra un post - puedes hacer que retorne (esscriba) varios valoress pero debes ponerlos en la misma linea
                                                                         #puedes meter una tupla,el segundo valor sera uno de los tantosss codigoss http (consultar informacion)
+
+
+@app.route("/guardoconexito", methods = ["GET", "POST"])
+def pag_guardado():
+    if request.method == "POST":
+        return render_template('cambios guardados.html')
 
 
 @app.route("/pagina_principal", methods = ["GET", "POST"])                                                
@@ -37,23 +55,19 @@ def index():
 @app.route("/recibir", methods = ["GET","POST"])                          #jamas olvides poner que metodos quieres
 def CR():
     if request.method == "POST":
-        print(url_for("UD"))
-
         action = request.form.get('action')
-
-
 
         if action == "create":
             return crear()
         elif action == "read":
             return leer()
         elif action == "update":
-            return render_template("actualizardatos.html")
+            return actualizar()
         elif action == "delete":
-            return render_template("borrar datos.html")
+            return redirect(url_for("UD"))
         else:
             return "Acción no válida"
-    return render_template("formulario.html")
+    return render_template("actualizardatos.html")
         
 def crear():                                    # Flask lo atrapa por el name del input - #cuando ocurra el metodo post aparece el mensaje dentro del if
     nombre = request.form['nombre'].strip()                               
@@ -90,36 +104,21 @@ def leer():
     finally:
         conexion.close()
 
-
-@app.route("/recibir/actualizar_y_borrar", methods = ["GET", "POST"])
-def UD():
-    if request.method == "POST":
-        action = request.form.get('action')
-        print("hola mundo")
-        if action == "update":
-            return actualizar()
-        elif action == "delete":
-            return eliminar()
-        else:
-            return "Acción no válida"
-    return render_template("actualizardatos.html")
-
-
 def actualizar(): 
-    id = request.form('identificacion').strip()
+    ide = request.form('identificacion').strip()
     nombre = request.form('nombre').strip()
     contrasena = request.form('contrasen').strip()
     print("hola mundo")
 
 
-    if not nombre or not contrasena:
-        return "Error: Ambos campos son requeridos."
+    # if not nombre or not contrasena:
+    #     return "Error: Ambos campos son requeridos."
 
     conexion = get_connection()
     try:
         with conexion.cursor() as cursor:
             sql = f"UPDATE usuarios SET nombre=%s, contrasena=%s WHERE id=%s"
-            cursor.execute(sql, (nombre, contrasena, id))
+            cursor.execute(sql, (nombre, contrasena, ide))
             conexion.commit()
             return render_template("guardado exitosamente")
         print(f"Usuario con ID {id} actualizado correctamente")
@@ -128,28 +127,39 @@ def actualizar():
     finally:
         conexion.close()
 
+
+@app.route("/recibir/get", methods = ["GET", "POST"])
+def UD():
+    return render_template("Borrar datos.html")
+
+
+@app.route("/datoborrado", methods = ["GET", "POST"])
+
 def eliminar():
     identif = int(request.form['identificacion'])
-    nombre = request.form['nombre'].strip()
-    contrasena = request.form['contrasen'].strip()
-    print(f"ID: {identif}, Nombre: {nombre}, Contraseña: {contrasena}")
-
-
-    if not nombre or not contrasena:
-        return "Error: Ambos campos son requeridos."
+    conteo = 0
+   
+    if not identif:
+        return "Error: Id requerida para eliminar datos"
     
 
     conexion = get_connection()
     try:
         with conexion.cursor() as cursor:
             sql = "DELETE FROM usuarios WHERE id=%s"
-            cursor.execute(sql, (nombre, contrasena, identif))
+            cursor.execute(sql, (identif))
             conexion.commit()
+            conteo += 1
         print(f"Usuario con ID {identif} actualizado correctamente")
     except Exception as e:
         return f"Error al actualizar el usuario: {str(e)}"
     finally:
         conexion.close()
+    
+    if conteo < 1:
+        return eliminar()
+    return redirect(url_for("index"))
+
 
 
 

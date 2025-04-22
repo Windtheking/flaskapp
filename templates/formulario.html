@@ -9,17 +9,17 @@
 </head>
 <body>
     <div class="contieneh1">
-        <h1>Enviar datos</h1>
+        <h1>Sing in</h1>
+        <h3>Crea tu mundo</h3>
     </div>
     <!-- esto permite enviar el "post" que necesita el app.py para ejecutar el ingreso a la base de datos de mysql -->
     <form action="/recibir" method="POST">                                      
         <input class="nombre" type="text" name="nombre" placeholder="Tu nombre" id="">
         <input class="pass" type="password" name="contrasen" placeholder="Tu contraseña" id="">
-        <button id="referenciacentral" class="elboton" name="action" value="create"><b>Insertar</b> <i class="fa-solid fa-file-import"></i>
-        <button id="referencia1" class="elboton" name="action" value="read"><b>Ver datos</b> <i class="fa-solid fa-database"></i>
+        <button id="referenciacentral" class="elboton" name="action" value="create"><b>Crear cuenta</b> <i class="fa-solid fa-file-import"></i>
+        <button id="referencia1" class="elboton" name="action" value="read"><b>Ver cuentas existentes</b> <i class="fa-solid fa-database"></i>
         <button id="referencia2" class="elboton" name="action" value="update"><b>¿Desea actualizar datos?</b> <i class="fa-solid fa-pen-nib"></i>
-        <button id="referencia3" class="elboton" name="action" value="delete"><b>¿Desea eliminar datos?</b> <i class="fa-solid fa-trash-can"></i>
+        <button id="referencia3" class="elboton" name="action" value="delete"><b>¿Desea eliminar cuentas?</b> <i class="fa-solid fa-trash-can"></i>
     </form>
-
 </body>
 </html>
