@@ -16,6 +16,7 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Contraseña</th>
+                <th>foreing Key</th>
                 <!-- Agrega más columnas si tu tabla tiene más campos -->
             </tr>
         </thead>
@@ -24,10 +25,11 @@
             <!-- jinja utiliza esto para meter python en html -->
             <tr>
                 <!-- jinja utiliza todo esto para meterse a la "lista" que genera mysql -->
-                <td>{{ usuario[0] }}</td>                
-                <td>{{ usuario[1] }}</td>       
-                <td>{{ usuario[2] }}</td>       
-                <td>{{ usuario[3] }}</td>       
+                <td>{{ usuario[0] }}</td>
+                <td>{{ usuario[1] }}</td>
+                <td>{{ usuario[2] }}</td>
+                <td>{{ usuario[3] }}</td>
+                <td>{{ usuario[0] }}</td>                      
             </tr>
             {% endfor %}
             <!-- jinja usa esto para terminar el for dentro de html -->

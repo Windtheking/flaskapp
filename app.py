@@ -62,9 +62,9 @@ def CR():
         elif action == "read":
             return leer()
         elif action == "update":
-            return actualizar()
+            return redirect(url_for("U"))
         elif action == "delete":
-            return redirect(url_for("UD"))
+            return redirect(url_for("D"))
         else:
             return "Acción no válida"
     return render_template("actualizardatos.html")
@@ -104,12 +104,17 @@ def leer():
     finally:
         conexion.close()
 
+@app.route("/recibir/actua", methods = ["GET", "POST"])
+def U():
+    return render_template("actualizardatos.html")
+
+@app.route("/datoactualizado", methods = ["GET", "POST"])
+
 def actualizar(): 
-    ide = request.form('identificacion').strip()
+    ident = request.form('identificacion').strip()
     nombre = request.form('nombre').strip()
     contrasena = request.form('contrasen').strip()
-    print("hola mundo")
-
+    conteo = 0
 
     # if not nombre or not contrasena:
     #     return "Error: Ambos campos son requeridos."
@@ -118,18 +123,21 @@ def actualizar():
     try:
         with conexion.cursor() as cursor:
             sql = f"UPDATE usuarios SET nombre=%s, contrasena=%s WHERE id=%s"
-            cursor.execute(sql, (nombre, contrasena, ide))
+            cursor.execute(sql, (nombre, contrasena, ident))
             conexion.commit()
-            return render_template("guardado exitosamente")
+            conteo += 1
         print(f"Usuario con ID {id} actualizado correctamente")
     except Exception as e:
         return f"Error al actualizar el usuario: {str(e)}"
     finally:
         conexion.close()
 
+    if conteo < 1:
+        return eliminar()
+
 
 @app.route("/recibir/get", methods = ["GET", "POST"])
-def UD():
+def D():
     return render_template("Borrar datos.html")
 
 
